@@ -7,8 +7,8 @@ export function addDays(date, n) {
   return d;
 }
 
-export function fmt(date) {
-  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+export function fmt(date, locale = "en-GB") {
+  return date.toLocaleDateString(locale, { day: "numeric", month: "short" });
 }
 
 export function initials(name) {
