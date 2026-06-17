@@ -29,10 +29,10 @@ export function ProgressBar({ pct }) {
 export function Ring({ pct }) {
   return (
     <div
-      className="relative flex h-20 w-20 items-center justify-center rounded-full"
+      className="relative flex size-20 items-center justify-center rounded-full"
       style={{ background: `conic-gradient(#10b981 ${pct * 3.6}deg, #e2e8f0 0deg)` }}
     >
-      <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-white">
+      <div className="flex size-[60px] items-center justify-center rounded-full bg-white">
         <span className="text-lg font-semibold tabular-nums text-slate-800">{pct}%</span>
       </div>
     </div>
@@ -41,7 +41,7 @@ export function Ring({ pct }) {
 
 export function Stat({ label, value, danger }) {
   return (
-    <div className="rounded-xl bg-slate-50 px-4 py-3">
+    <div className={`rounded-xl border px-4 py-3 ${danger ? "border-rose-200 bg-rose-50" : "border-slate-200 bg-white"}`}>
       <div className="text-[13px] text-slate-500">{label}</div>
       <div className={`mt-1 text-2xl font-semibold tabular-nums ${danger ? "text-rose-600" : "text-slate-900"}`}>
         {value}

@@ -5,6 +5,7 @@ export const de = {
     nav: { dashboard: "Dashboard", templates: "Vorlagen" },
     addHire: "Neuen Mitarbeiter hinzufügen",
     langAria: "Sprache",
+    menuAria: "Menü",
   },
   dashboard: {
     kpi: {

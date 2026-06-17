@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ClipboardCheck, FileText, LayoutGrid, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ClipboardCheck, FileText, LayoutGrid, Menu, Plus, X } from "lucide-react";
 import { SEED, buildHire } from "./data/hires";
 import { Dashboard } from "./components/Dashboard";
 import { HireDetail } from "./components/HireDetail";
@@ -13,6 +13,7 @@ function Shell() {
   const [hires, setHires] = useState(SEED);
   const [view, setView] = useState({ name: "dashboard", hireId: null });
   const [modal, setModal] = useState({ open: false, preset: null });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function toggleTask(hireId, taskId) {
     setHires((prev) =>
@@ -31,10 +32,25 @@ function Shell() {
     setView({ name: "detail", hireId: hire.id });
   }
 
+  function goTo(name) {
+    setView({ name, hireId: null });
+    setMenuOpen(false);
+  }
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onKey(e) {
+      if (e.key === "Escape") setMenuOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   const current = hires.find((h) => h.id === view.hireId);
+
   const navItem = (key, label, Icon) => (
     <button
-      onClick={() => setView({ name: key, hireId: null })}
+      onClick={() => goTo(key)}
       className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm ${
         view.name === key
           ? "bg-slate-100 font-medium text-slate-800"
@@ -45,25 +61,40 @@ function Shell() {
     </button>
   );
 
+  const mobileNavItem = (key, label, Icon) => (
+    <button
+      onClick={() => goTo(key)}
+      className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${
+        view.name === key
+          ? "bg-slate-100 font-medium text-slate-800"
+          : "text-slate-600 hover:bg-slate-50"
+      }`}
+    >
+      <Icon size={18} /> {label}
+    </button>
+  );
+
   return (
     <div
-      className="min-h-screen bg-slate-50 text-slate-900"
+      className="min-h-dvh bg-slate-50 text-slate-900"
       style={{ fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif" }}
     >
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 sm:px-5">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3 sm:px-5">
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <div className="flex shrink-0 items-center gap-2">
               <ClipboardCheck size={20} className="text-emerald-500" />
               <span className="truncate font-semibold text-slate-800">{t.app.brand}</span>
             </div>
-            <nav className="flex items-center gap-0.5 sm:gap-1">
+            <nav className="hidden items-center gap-1 sm:flex">
               {navItem("dashboard", t.app.nav.dashboard, LayoutGrid)}
               {navItem("templates", t.app.nav.templates, FileText)}
             </nav>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             <button
               onClick={() => setModal({ open: true, preset: null })}
               className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
@@ -71,8 +102,30 @@ function Shell() {
             >
               <Plus size={16} /> <span className="hidden sm:inline">{t.app.addHire}</span>
             </button>
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 sm:hidden"
+              aria-label={t.app.menuAria}
+              aria-controls="mobileMenu"
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </div>
+
+        {menuOpen && (
+          <div id="mobileMenu" className="space-y-1 border-t border-slate-200 px-4 py-3 sm:hidden">
+            {mobileNavItem("dashboard", t.app.nav.dashboard, LayoutGrid)}
+            {mobileNavItem("templates", t.app.nav.templates, FileText)}
+            <div className="flex items-center justify-between border-t border-slate-100 px-3 pb-1 pt-3">
+              <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                {t.app.langAria}
+              </span>
+              <LanguageSwitcher />
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-7">

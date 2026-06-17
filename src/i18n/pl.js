@@ -5,6 +5,7 @@ export const pl = {
     nav: { dashboard: "Pulpit", templates: "Szablony" },
     addHire: "Dodaj nowego pracownika",
     langAria: "Język",
+    menuAria: "Menu",
   },
   dashboard: {
     kpi: {

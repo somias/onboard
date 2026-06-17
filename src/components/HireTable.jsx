@@ -166,59 +166,61 @@ export function HireTable({ hires, onOpen }) {
           </button>
         </div>
       ) : (
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="text-[11px] uppercase tracking-wider text-slate-400">
-              <th className="px-3 py-2 font-medium sm:px-4">{t.hireTable.cols.name}</th>
-              <th className="hidden px-3 py-2 font-medium sm:table-cell sm:px-4">{t.hireTable.cols.department}</th>
-              <th className="hidden px-3 py-2 font-medium sm:table-cell sm:px-4">{t.hireTable.cols.start}</th>
-              <th className="px-3 py-2 font-medium sm:px-4">{t.hireTable.cols.progress}</th>
-              <th className="px-3 py-2 font-medium sm:px-4">{t.hireTable.cols.status}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {visible.map((h) => {
-              const d = derive(h);
-              const dept = t.templateLabels[h.templateKey]?.department ?? "";
-              return (
-                <tr
-                  key={h.id}
-                  onClick={() => onOpen(h.id)}
-                  className="cursor-pointer border-t border-slate-100 hover:bg-slate-50"
-                >
-                  <td className="px-3 py-3 sm:px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-xs font-medium text-sky-700">
-                        {initials(h.name)}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="truncate font-medium text-slate-800">
-                          <Highlight text={h.name} query={q} />
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[680px] text-left text-sm">
+            <thead>
+              <tr className="text-[11px] uppercase tracking-wider text-slate-400">
+                <th className="px-4 py-2 font-medium">{t.hireTable.cols.name}</th>
+                <th className="px-4 py-2 font-medium">{t.hireTable.cols.department}</th>
+                <th className="px-4 py-2 font-medium">{t.hireTable.cols.start}</th>
+                <th className="px-4 py-2 font-medium">{t.hireTable.cols.progress}</th>
+                <th className="px-4 py-2 font-medium">{t.hireTable.cols.status}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visible.map((h) => {
+                const d = derive(h);
+                const dept = t.templateLabels[h.templateKey]?.department ?? "";
+                return (
+                  <tr
+                    key={h.id}
+                    onClick={() => onOpen(h.id)}
+                    className="cursor-pointer border-t border-slate-100 hover:bg-slate-50"
+                  >
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-xs font-medium text-sky-700">
+                          {initials(h.name)}
                         </div>
-                        <div className="truncate text-xs text-slate-400">
-                          <Highlight text={h.role} query={q} />
+                        <div className="min-w-0">
+                          <div className="truncate font-medium text-slate-800">
+                            <Highlight text={h.name} query={q} />
+                          </div>
+                          <div className="truncate text-xs text-slate-400">
+                            <Highlight text={h.role} query={q} />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="hidden px-3 py-3 text-slate-500 sm:table-cell sm:px-4">
-                    <Highlight text={dept} query={q} />
-                  </td>
-                  <td className="hidden px-3 py-3 text-slate-500 sm:table-cell sm:px-4">{fmt(h.start, locale)}</td>
-                  <td className="px-3 py-3 sm:px-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-14 sm:w-24"><ProgressBar pct={d.pct} /></div>
-                      <span className="w-9 text-xs tabular-nums text-slate-500">{d.pct}%</span>
-                    </div>
-                  </td>
-                  <td className="px-3 py-3 sm:px-4">
-                    <StatusPill statusKey={d.status} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-slate-500">
+                      <Highlight text={dept} query={q} />
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-slate-500">{fmt(h.start, locale)}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-24"><ProgressBar pct={d.pct} /></div>
+                        <span className="w-9 text-xs tabular-nums text-slate-500">{d.pct}%</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <StatusPill statusKey={d.status} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

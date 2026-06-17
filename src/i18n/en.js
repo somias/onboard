@@ -5,6 +5,7 @@ export const en = {
     nav: { dashboard: "Dashboard", templates: "Templates" },
     addHire: "Add new hire",
     langAria: "Language",
+    menuAria: "Menu",
   },
   dashboard: {
     kpi: {
