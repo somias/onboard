@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
   return (
     <nav
       aria-label={t.app.langAria}
-      className="hidden items-center gap-1 font-mono text-[11px] tracking-widest text-slate-400 sm:flex"
+      className="flex items-center gap-1 font-mono text-[11px] tracking-widest text-slate-400"
       style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace" }}
     >
       {LANGS.map((l, i) => (

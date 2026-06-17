@@ -63,7 +63,7 @@ export function AddHireModal({ presetTemplate, onClose, onCreate }) {
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-slate-400"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="text-xs font-medium text-slate-500">{t.modal.templateLabel}</label>
               <select

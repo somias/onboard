@@ -51,22 +51,23 @@ function Shell() {
       style={{ fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif" }}
     >
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-3">
-          <div className="flex items-center gap-5">
-            <div className="flex items-center gap-2">
+        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 sm:px-5">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-5">
+            <div className="flex shrink-0 items-center gap-2">
               <ClipboardCheck size={20} className="text-emerald-500" />
-              <span className="font-semibold text-slate-800">{t.app.brand}</span>
+              <span className="truncate font-semibold text-slate-800">{t.app.brand}</span>
             </div>
-            <nav className="flex items-center gap-1">
+            <nav className="flex items-center gap-0.5 sm:gap-1">
               {navItem("dashboard", t.app.nav.dashboard, LayoutGrid)}
               {navItem("templates", t.app.nav.templates, FileText)}
             </nav>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
             <button
               onClick={() => setModal({ open: true, preset: null })}
               className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700"
+              aria-label={t.app.addHire}
             >
               <Plus size={16} /> <span className="hidden sm:inline">{t.app.addHire}</span>
             </button>
@@ -74,7 +75,7 @@ function Shell() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl px-5 py-7">
+      <main className="mx-auto max-w-4xl px-4 py-6 sm:px-5 sm:py-7">
         {view.name === "dashboard" && (
           <Dashboard
             hires={hires}
