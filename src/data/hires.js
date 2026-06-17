@@ -68,10 +68,11 @@ export function derive(hire) {
 }
 
 export const SEED = [
-  buildHire({ name: "Miloš Savković", role: "Senior software engineer", templateKey: "it", start: new Date(2026, 4, 25), owner: "P. Nowak", pct: 1 }),
+  buildHire({ name: "Miloš Savković", role: "Senior software engineer", templateKey: "corporate", start: new Date(2026, 4, 25), owner: "Sebastian Wróblewski", pct: 1 }),
   buildHire({ name: "Lukas Brandt", role: "Junior power trader", templateKey: "trading", start: new Date(2026, 5, 22), owner: "P. Nowak", pct: 0.64 }),
   buildHire({ name: "Anna Kowalska", role: "Compliance officer", templateKey: "compliance", start: new Date(2026, 5, 18), owner: "M. Lang", pct: 0.82 }),
   buildHire({ name: "Mehmet Yılmaz", role: "Back-office analyst", templateKey: "operations", start: new Date(2026, 5, 16), owner: "T. Becker", pct: 0.45 }),
-  buildHire({ name: "Sofia Richter", role: "HR coordinator", templateKey: "corporate", start: new Date(2026, 5, 29), owner: "M. Lang", pct: 0.2 }),
+  buildHire({ name: "Sofia Richter", role: "HR coordinator", templateKey: "corporate", start: new Date(2026, 5, 29), owner: "Sebastian Wróblewski", pct: 0.2 }),
   buildHire({ name: "Jonas Weber", role: "IT systems engineer", templateKey: "it", start: new Date(2026, 6, 1), owner: "P. Nowak", pct: 0.1 }),
+  buildHire({ name: "Sebastian Wróblewski", role: "Head of Corporate Services", templateKey: "corporate", start: new Date(2019, 8, 2), owner: "Executive Board", pct: 1 }),
 ];
